@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roll No Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <h2>Enter Roll Number</h2>
+
+  <input type="number" id="rollno" placeholder="Enter roll number">
+  <br><br>
+  <button onclick="saveRoll()">Submit</button>
+
+  <p id="msg"></p>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZYWJBpF8WCRUg6ulTlhWnkgvPYC1mKVw",
+      authDomain: "ptoi-54ea4.firebaseapp.com",
+      projectId: "ptoi-54ea4",
+      storageBucket: "ptoi-54ea4.firebasestorage.app",
+      messagingSenderId: "441961239440",
+      appId: "1:441961239440:web:3599eeeeac03a7f2da1915"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // ✅ MULTIPLE VALID ROLL NUMBERS
+    const CORRECT_ROLL = ["1122", "1133", "1144", "1155"];
+
+    window.saveRoll = async function () {
+      const roll = document.getElementById("rollno").value;
+      const msg = document.getElementById("msg");
+
+      if (!roll) {
+        msg.innerText = "❌ Enter roll number";
+        return;
+      }
+
+      // ✅ Check if roll exists in array
+      if (!CORRECT_ROLL.includes(roll)) {
+        msg.innerText = "❌ Invalid roll number";
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "roll_logins"), {
+          rollno: roll,
+          loginTime: new Date()
+        });
+
+        msg.innerText = "✅ Success! you will be redirecting...";
+
+        setTimeout(() => {
+          window.location.href = "b.html";
+        }, 1000);
+
+      } catch (error) {
+        msg.innerText = error.message;
+      }
+    };
+  </script>
+
+</body>
+</html>
