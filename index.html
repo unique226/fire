@@ -4,11 +4,44 @@
   <meta charset="UTF-8">
   <title>Roll No Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+  </head>
+  <body>
+
+  <style>
+    #rollno {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+      background-color: rgb(245, 239, 239);
+      border: none;
+      border-radius: 10px;
+      box-shadow:  0 0 2px black;
+      margin-left: 100px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow:  0 0 2px black;
+      margin-left: 160px;
+    }
+    h2 {
+      margin-left: 100px;
+    }
+    label {
+      margin-left: 100px;
+      font-size: 8px;
+      color: red;
+    }
+    </style>
 
   <h2>Enter Roll Number</h2>
-
+    <label for="rollno">NOTE:YOUR LOGIN WILL BE SAVED.</label>
+    <br>
   <input type="number" id="rollno" placeholder="Enter roll number">
   <br><br>
   <button onclick="saveRoll()">Submit</button>
@@ -33,7 +66,7 @@
     const db = getFirestore(app);
 
     // ✅ MULTIPLE VALID ROLL NUMBERS
-    const CORRECT_ROLL = ["1122", "1133", "1144", "1155"];
+    const CORRECT_ROLL = ["25112", "2511", "2512", "2522"];
 
     window.saveRoll = async function () {
       const roll = document.getElementById("rollno").value;
